@@ -5,6 +5,10 @@ hero:
   name: Boring by design
   text: A blog and a book
   tagline: Simple, durable systems — built on purpose, not by accident.
+  image:
+    light: /logo.svg
+    dark: /logo-dark.svg
+    alt: Boring by design
   actions:
     - theme: brand
       text: Start reading

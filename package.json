@@ -7,9 +7,11 @@
   "scripts": {
     "dev": "vitepress dev documentation",
     "build": "vitepress build documentation",
-    "preview": "vitepress preview documentation"
+    "preview": "vitepress preview documentation",
+    "assets": "node scripts/generate-assets.mjs"
   },
   "devDependencies": {
+    "sharp": "^0.33.5",
     "vitepress": "^1.6.3"
   }
 }

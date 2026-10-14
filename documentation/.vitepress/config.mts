@@ -9,8 +9,25 @@ export default defineConfig({
   lang: 'en-US',
   cleanUrls: true,
   lastUpdated: true,
+  head: [
+    ['link', { rel: 'icon', href: '/favicon.ico', sizes: 'any' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' }],
+    ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' }],
+    ['meta', { name: 'theme-color', content: '#2563a8' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:title', content: 'Boring by design' }],
+    ['meta', { property: 'og:description', content: 'A blog and book about building simple, durable systems on purpose.' }],
+    ['meta', { property: 'og:url', content: 'https://boringbydesign.org/' }],
+    ['meta', { property: 'og:image', content: 'https://boringbydesign.org/og-image.png' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: 'Boring by design' }],
+    ['meta', { name: 'twitter:description', content: 'A blog and book about building simple, durable systems on purpose.' }],
+    ['meta', { name: 'twitter:image', content: 'https://boringbydesign.org/og-image.png' }],
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
+    logo: { light: '/logo.svg', dark: '/logo-dark.svg', alt: 'Boring by design' },
     nav: [
       { text: 'Home', link: '/' },
       { text: 'About', link: '/about' },

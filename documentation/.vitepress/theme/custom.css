@@ -1,0 +1,46 @@
+/* Boring by design — brand tokens over the VitePress default theme.
+   Values mirror documentation/identity.md. */
+
+:root {
+  /* Accent — single muted blue, used for links and the brand mark. */
+  --vp-c-brand-1: #2563a8;
+  --vp-c-brand-2: #1d4f87;
+  --vp-c-brand-3: #2563a8;
+  --vp-c-brand-soft: rgba(37, 99, 168, 0.14);
+
+  /* Neutrals */
+  --vp-c-bg: #f7f8fa;
+  --vp-c-bg-alt: #eef1f4;
+  --vp-c-bg-soft: #f0f2f5;
+  --vp-c-text-1: #1a2733;
+  --vp-c-text-2: #5b6b7a;
+
+  /* Type: serif body for long-form, system sans for chrome. */
+  --vp-font-family-base: Georgia, Cambria, 'Times New Roman', serif;
+  --vp-font-family-mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+  /* Shape */
+  --vp-border-radius: 8px;
+
+  /* Home hero brand gradient — kept subtle, within the one-accent rule. */
+  --vp-home-hero-name-color: var(--vp-c-brand-1);
+}
+
+/* Keep navigation and headings on the modern system sans. */
+.VPNav,
+:is(h1, h2, h3, h4, .VPButton) {
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+.dark {
+  --vp-c-brand-1: #5b9bd5;
+  --vp-c-brand-2: #7db0e3;
+  --vp-c-brand-3: #5b9bd5;
+  --vp-c-brand-soft: rgba(91, 155, 213, 0.16);
+
+  --vp-c-bg: #15191e;
+  --vp-c-bg-alt: #1e242b;
+  --vp-c-bg-soft: #1b2127;
+  --vp-c-text-1: #d6dde4;
+  --vp-c-text-2: #9aa7b4;
+}
