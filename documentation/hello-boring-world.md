@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Hello, boring world
 date: 2026-10-14
 tags: [meta, principles]

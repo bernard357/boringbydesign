@@ -22,11 +22,11 @@ published slug.
 ## Post frontmatter
 
 A page is treated as a **post** (rather than a plain site page like `about`)
-when it carries a `date:` field. Minimum frontmatter:
+when it carries a `date:` field. Posts use the default VitePress `doc` layout,
+so do not set a `layout:` key. Minimum frontmatter:
 
 ```yaml
 ---
-layout: post
 title: Hello, boring world
 date: 2026-10-14
 tags: [meta, principles]
@@ -40,7 +40,9 @@ excerpt: Why this blog exists and what "boring by design" means.
 | `date` | yes | Publication date (`YYYY-MM-DD`); also the post marker |
 | `tags` | no | List of keywords, shown on the post and index |
 | `excerpt` | no | One-line summary; falls back to the first paragraph |
-| `layout` | no | `post` for the blog treatment; omit for plain pages |
+
+Do not set `layout:` on a post — VitePress has no `post` layout, and naming a
+nonexistent layout renders a blank page. The `date:` field alone marks a post.
 
 ## The posts index
 
