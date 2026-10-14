@@ -2,14 +2,8 @@
 layout: doc
 aside: false
 outline: false
+sidebar: false
 ---
-
-# Boring by design
-
-Simple, durable systems — built on purpose, not by accident. A blog about
-choosing proven tools over novelty. Newest first.
-
-<PostList />
 
 <script setup>
 import { ref, onMounted } from 'vue'
@@ -22,6 +16,10 @@ onMounted(async () => {
   posts.value = await res.json()
 })
 
+function href(url) {
+  return withBase(url)
+}
+
 function formatDate(iso) {
   if (!iso) return ''
   const d = new Date(iso)
@@ -29,9 +27,13 @@ function formatDate(iso) {
 }
 </script>
 
+<div class="home-intro">
+  <p class="home-lede">Simple, durable systems — built on purpose, not by accident. A blog about choosing proven tools over novelty.</p>
+</div>
+
 <div class="post-list">
   <article v-for="post in posts" :key="post.url" class="post-item">
-    <h2 class="post-title"><a :href="withBase(post.url)">{{ post.title }}</a></h2>
+    <h3 class="post-title"><a :href="href(post.url)">{{ post.title }}</a></h3>
     <p class="post-meta">
       <time :datetime="post.date">{{ formatDate(post.date) }}</time>
       <span v-if="post.tags && post.tags.length" class="post-tags">

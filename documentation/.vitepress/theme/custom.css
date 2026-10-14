@@ -45,26 +45,42 @@
   --vp-c-text-2: #9aa7b4;
 }
 
-/* Blog post list (home page). */
+/* Home intro header (replaces the default H1 so no heading rule shows). */
+.home-intro {
+  padding-top: 1rem;
+}
+
+.home-lede {
+  font-size: 1.15rem;
+  line-height: 1.6;
+  color: var(--vp-c-text-2);
+  max-width: 46rem;
+  margin: 0;
+}
+
+/* Blog post list (home page). Dividers sit only between items. */
 .post-list {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
 
 .post-item {
   padding: 1.5rem 0;
+}
+
+.post-item + .post-item {
   border-top: 1px solid var(--vp-c-divider);
 }
 
-.post-item:last-child {
-  border-bottom: 1px solid var(--vp-c-divider);
-}
-
 .post-title {
-  margin: 0;
-  border: 0;
-  padding: 0;
+  margin: 0 !important;
+  border: 0 !important;
+  padding: 0 !important;
   font-size: 1.4rem;
   letter-spacing: -0.01em;
+}
+
+.post-title::before {
+  display: none;
 }
 
 .post-title a {
