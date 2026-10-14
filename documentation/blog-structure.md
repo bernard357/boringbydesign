@@ -1,0 +1,73 @@
+---
+layout: doc
+---
+
+# Blog structure
+
+How posts are authored, addressed, and indexed on **Boring by design**. Posts
+are independent essays; the only thing they share is the boring principle.
+
+## Flat URLs and deep linking
+
+Each post is a single Markdown file at the **root** of the docs tree:
+
+```
+documentation/<slug>.md   →   https://boringbydesign.org/<slug>
+```
+
+There is no `/blog` segment. The flat `/<slug>` URL is the post's permanent
+address, so external references stay valid indefinitely. Do not rename a
+published slug.
+
+## Post frontmatter
+
+A page is treated as a **post** (rather than a plain site page like `about`)
+when it carries a `date:` field. Minimum frontmatter:
+
+```yaml
+---
+layout: post
+title: Hello, boring world
+date: 2026-10-14
+tags: [meta, principles]
+excerpt: Why this blog exists and what "boring by design" means.
+---
+```
+
+| Field | Required | Purpose |
+| --- | --- | --- |
+| `title` | yes | Post title, shown in the index and the page |
+| `date` | yes | Publication date (`YYYY-MM-DD`); also the post marker |
+| `tags` | no | List of keywords, shown on the post and index |
+| `excerpt` | no | One-line summary; falls back to the first paragraph |
+| `layout` | no | `post` for the blog treatment; omit for plain pages |
+
+## The posts index
+
+At build time, `scripts/build_posts.py` scans every root `documentation/*.md`
+carrying a `date:`, reads its frontmatter and first paragraph, and writes a
+newest-first JSON index to `documentation/public/posts.json`:
+
+```json
+[
+  {
+    "title": "Hello, boring world",
+    "url": "/hello-boring-world",
+    "date": "2026-10-14",
+    "tags": ["meta", "principles"],
+    "excerpt": "Why this blog exists and what \"boring by design\" means."
+  }
+]
+```
+
+The file ships to `dist/posts.json` and the home page fetches it in the
+browser to render the recent-posts list. It is build-generated, so it is
+git-ignored and regenerated on every `make build`.
+
+## From blog to book
+
+When there is enough material, the same post files become book chapters with
+only a sidebar change: add an ordered `sidebar` grouping in
+`.vitepress/config.mts` over the chosen posts. No content moves, no URL
+changes — the blog is a flat list over the posts, the book is an ordered path
+through them.

@@ -31,21 +31,11 @@ export default defineConfig({
     nav: [
       { text: 'Home', link: '/' },
       { text: 'About', link: '/about' },
-      { text: 'Book', link: '/chapter-1' },
     ],
-    sidebar: [
-      {
-        text: 'Introduction',
-        items: [
-          { text: 'Home', link: '/' },
-          { text: 'About', link: '/about' },
-        ],
-      },
-      {
-        text: 'Book',
-        items: [{ text: 'Chapter 1', link: '/chapter-1' }],
-      },
-    ],
+    // No sidebar for now — posts are flat and independent. When enough
+    // material accumulates, add an ordered sidebar grouping here to turn
+    // the blog into a book without moving any files.
+    sidebar: false,
     search: {
       provider: 'local',
     },

@@ -1,4 +1,5 @@
 node_modules/
 documentation/.vitepress/dist/
 documentation/.vitepress/cache/
+documentation/public/posts.json
 .DS_Store

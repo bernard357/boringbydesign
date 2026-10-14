@@ -44,3 +44,67 @@
   --vp-c-text-1: #d6dde4;
   --vp-c-text-2: #9aa7b4;
 }
+
+/* Blog post list (home page). */
+.post-list {
+  margin-top: 2rem;
+}
+
+.post-item {
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--vp-c-divider);
+}
+
+.post-item:last-child {
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.post-title {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+}
+
+.post-title a {
+  color: var(--vp-c-text-1);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.post-title a:hover {
+  color: var(--vp-c-brand-1);
+}
+
+.post-meta {
+  margin: 0.35rem 0 0.6rem;
+  font-size: 0.85rem;
+  color: var(--vp-c-text-2);
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.post-tags {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.post-tag {
+  font-size: 0.75rem;
+  padding: 0.05rem 0.5rem;
+  border-radius: 999px;
+  background: var(--vp-c-brand-soft);
+  color: var(--vp-c-brand-1);
+}
+
+.post-excerpt {
+  margin: 0;
+  color: var(--vp-c-text-2);
+  line-height: 1.6;
+}
+
+.post-empty {
+  color: var(--vp-c-text-2);
+}
