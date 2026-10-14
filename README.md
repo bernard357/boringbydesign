@@ -3,7 +3,7 @@
 A blog and book site, authored in Markdown and published as a static
 [VitePress](https://vitepress.dev/) site on
 [GitHub Pages](https://docs.github.com/en/pages) at
-[boringdesign.org](https://boringdesign.org).
+[boringbydesign.org](https://boringbydesign.org).
 
 ## Layout
 
@@ -47,6 +47,6 @@ site and deploys it to GitHub Pages. One-time setup: in the repository
 **Settings → Pages**, set the publishing **Source** to **GitHub Actions**.
 
 The custom domain and HTTPS are configured per the GitHub Pages documentation:
-verify `boringdesign.org` at the account level, add it in **Settings → Pages**,
+verify `boringbydesign.org` at the account level, add it in **Settings → Pages**,
 point apex `A`/`AAAA` records and a `www` `CNAME` at GitHub, then enable
 **Enforce HTTPS**.

@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'Boring by design',
   description: 'A blog and book, served statically.',
-  // Served from the custom apex domain boringdesign.org at the root.
+  // Served from the custom apex domain boringbydesign.org at the root.
   base: '/',
   lang: 'en-US',
   cleanUrls: true,
