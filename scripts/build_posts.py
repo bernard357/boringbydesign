@@ -13,14 +13,21 @@ from __future__ import annotations
 
 import json
 import re
+from datetime import datetime, timezone
 from pathlib import Path
+from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parent.parent
 DOCS = ROOT / "documentation"
-OUT = DOCS / "public" / "posts.json"
+PUBLIC = DOCS / "public"
+OUT = PUBLIC / "posts.json"
+FEED = PUBLIC / "atom.xml"
+CNAME = PUBLIC / "CNAME"
+
+SITE_TITLE = "Boring by design"
 
 # Pages that are never posts even if edited to carry a date.
-EXCLUDE = {"index.md", "about.md", "blog-structure.md", "identity.md"}
+EXCLUDE = {"index.md", "about.md", "blog-structure.md", "identity.md", "history.md"}
 
 FRONTMATTER = re.compile(r"^---\n(.*?)\n---\n?(.*)$", re.DOTALL)
 
@@ -89,11 +96,63 @@ def collect_posts() -> list[dict[str, object]]:
     return posts
 
 
+def site_base() -> str:
+    """Canonical site URL from the CNAME file, falling back to the apex."""
+    domain = "boringbydesign.org"
+    if CNAME.exists():
+        value = CNAME.read_text(encoding="utf-8").strip()
+        if value:
+            domain = value
+    return f"https://{domain}"
+
+
+def to_rfc3339(date: str) -> str:
+    """Turn a YYYY-MM-DD date into an RFC 3339 timestamp for Atom."""
+    try:
+        parsed = datetime.strptime(date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+    except ValueError:
+        parsed = datetime.now(timezone.utc)
+    return parsed.isoformat()
+
+
+def build_atom(posts: list[dict[str, object]], base: str) -> str:
+    """Render a minimal, valid Atom 1.0 feed for the posts (newest-first)."""
+    updated = to_rfc3339(str(posts[0]["date"])) if posts else datetime.now(
+        timezone.utc
+    ).isoformat()
+    lines = [
+        '<?xml version="1.0" encoding="utf-8"?>',
+        '<feed xmlns="http://www.w3.org/2005/Atom">',
+        f"  <title>{escape(SITE_TITLE)}</title>",
+        f'  <link href="{base}/"/>',
+        f'  <link rel="self" href="{base}/atom.xml"/>',
+        f"  <id>{base}/</id>",
+        f"  <updated>{updated}</updated>",
+    ]
+    for post in posts:
+        url = f"{base}{post['url']}"
+        lines += [
+            "  <entry>",
+            f"    <title>{escape(str(post['title']))}</title>",
+            f'    <link href="{url}"/>',
+            f"    <id>{url}</id>",
+            f"    <updated>{to_rfc3339(str(post['date']))}</updated>",
+            f"    <summary>{escape(str(post['excerpt']))}</summary>",
+            "  </entry>",
+        ]
+    lines.append("</feed>")
+    return "\n".join(lines) + "\n"
+
+
 def main() -> None:
     posts = collect_posts()
-    OUT.parent.mkdir(parents=True, exist_ok=True)
+    PUBLIC.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(posts, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"wrote {OUT.relative_to(ROOT)} with {len(posts)} post(s)")
+    FEED.write_text(build_atom(posts, site_base()), encoding="utf-8")
+    print(
+        f"wrote {OUT.relative_to(ROOT)} and {FEED.relative_to(ROOT)} "
+        f"with {len(posts)} post(s)"
+    )
 
 
 if __name__ == "__main__":

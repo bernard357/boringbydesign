@@ -7,40 +7,27 @@ sidebar: false
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { withBase } from 'vitepress'
+import { useRouter, withBase } from 'vitepress'
 
-const posts = ref([])
+const router = useRouter()
+const latest = ref(null)
 
 onMounted(async () => {
   const res = await fetch(withBase('/posts.json'))
-  posts.value = await res.json()
+  const posts = await res.json()
+  if (posts.length) {
+    latest.value = posts[0]
+    // Home reflects the most recent post: send the reader to its canonical URL.
+    router.go(withBase(posts[0].url))
+  }
 })
-
-function href(url) {
-  return withBase(url)
-}
-
-function formatDate(iso) {
-  if (!iso) return ''
-  const d = new Date(iso)
-  return d.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
-}
 </script>
 
-<div class="home-intro">
-  <p class="home-lede">Simple, durable systems — built on purpose, not by accident. A blog about choosing proven tools over novelty.</p>
-</div>
-
-<div class="post-list">
-  <article v-for="post in posts" :key="post.url" class="post-item">
-    <h3 class="post-title"><a :href="href(post.url)">{{ post.title }}</a></h3>
-    <p class="post-meta">
-      <time :datetime="post.date">{{ formatDate(post.date) }}</time>
-      <span v-if="post.tags && post.tags.length" class="post-tags">
-        <span v-for="tag in post.tags" :key="tag" class="post-tag">{{ tag }}</span>
-      </span>
-    </p>
-    <p class="post-excerpt">{{ post.excerpt }}</p>
-  </article>
-  <p v-if="!posts.length" class="post-empty">No posts yet.</p>
+<div class="home-redirect">
+  <p v-if="latest">Taking you to the latest post…
+    <a :href="withBase(latest.url)">{{ latest.title }}</a>
+  </p>
+  <p v-else>
+    Loading the latest post… or browse the <a :href="withBase('/history')">history</a>.
+  </p>
 </div>

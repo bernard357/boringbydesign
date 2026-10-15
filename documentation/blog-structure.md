@@ -66,6 +66,25 @@ The file ships to `dist/posts.json` and the home page fetches it in the
 browser to render the recent-posts list. It is build-generated, so it is
 git-ignored and regenerated on every `make build`.
 
+## Home, history, and navigation
+
+The home page `/` does not hold content of its own: on load it resolves the
+newest post from `posts.json` and redirects to that post's canonical `/<slug>`
+URL, so the front door always reflects the most recent writing with no manual
+edit. `/history` lists every post newest-first. Each post page carries a
+data-driven previous/next bar (older/newer in publication order), computed from
+`posts.json`; on the newest post the "older" link is the previous-post
+navigation.
+
+## Atom feed
+
+`scripts/build_posts.py` also emits `documentation/public/atom.xml`, a valid
+Atom 1.0 feed with one entry per post (newest-first). Absolute URLs are built
+from the domain in `documentation/public/CNAME`, so the feed stays correct
+across a domain change. The feed is build-generated (git-ignored) and
+discoverable via a `<link rel="alternate" type="application/atom+xml">` tag and
+a feed icon in the top navigation.
+
 ## From blog to book
 
 When there is enough material, the same post files become book chapters with

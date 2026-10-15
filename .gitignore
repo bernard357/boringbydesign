@@ -2,4 +2,5 @@ node_modules/
 documentation/.vitepress/dist/
 documentation/.vitepress/cache/
 documentation/public/posts.json
+documentation/public/atom.xml
 .DS_Store

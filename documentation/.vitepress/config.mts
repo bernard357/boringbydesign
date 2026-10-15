@@ -24,12 +24,14 @@ export default defineConfig({
     ['meta', { name: 'twitter:title', content: 'Boring by design' }],
     ['meta', { name: 'twitter:description', content: 'A blog and book about building simple, durable systems on purpose.' }],
     ['meta', { name: 'twitter:image', content: 'https://boringbydesign.org/og-image.png' }],
+    ['link', { rel: 'alternate', type: 'application/atom+xml', title: 'Boring by design', href: '/atom.xml' }],
   ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     logo: { light: '/logo.svg', dark: '/logo-dark.svg', alt: 'Boring by design' },
     nav: [
       { text: 'Home', link: '/' },
+      { text: 'History', link: '/history' },
       { text: 'About', link: '/about' },
     ],
     // No sidebar for now — posts are flat and independent. When enough
@@ -41,6 +43,13 @@ export default defineConfig({
     },
     socialLinks: [
       { icon: 'github', link: 'https://github.com/bernard357/boringbydesign' },
+      {
+        icon: {
+          svg: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11a9 9 0 0 1 9 9h2.5A11.5 11.5 0 0 0 4 8.5V11zm0 4a5 5 0 0 1 5 5h2.5A7.5 7.5 0 0 0 4 12.5V15zm1.5 5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/></svg>',
+        },
+        link: '/atom.xml',
+        ariaLabel: 'Atom feed',
+      },
     ],
   },
 })
