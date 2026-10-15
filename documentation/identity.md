@@ -1,6 +1,6 @@
 # Visual identity
 
-The visual identity for **Boring by design** is deliberately restrained. The
+The visual identity for **Boring steps** is deliberately restrained. The
 site argues for simple, durable systems, so its look earns trust through
 clarity rather than decoration: a quiet neutral base, one reserved accent, a
 readable serif for prose, and a single geometric mark.

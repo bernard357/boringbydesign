@@ -54,7 +54,7 @@ const og = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" vi
     <rect x="132" y="132" width="42" height="42" rx="9" fill="${ACCENT}"/>
   </g>
   <text x="420" y="300" font-family="Georgia, serif" font-size="84" fill="${INK}">Boring</text>
-  <text x="420" y="400" font-family="Georgia, serif" font-size="84" fill="${ACCENT}">by design</text>
+  <text x="420" y="400" font-family="Georgia, serif" font-size="84" fill="${ACCENT}">steps</text>
   <text x="422" y="470" font-family="system-ui, sans-serif" font-size="30" fill="#5b6b7a">Simple, durable systems — built on purpose.</text>
 </svg>`
 await sharp(Buffer.from(og)).png().toFile(join(pub, 'og-image.png'))

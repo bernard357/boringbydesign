@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the blog index for Boring by design.
+"""Build the blog index for Boring steps.
 
 Scans every root documentation/*.md carrying a ``date:`` field, reads its
 frontmatter and first paragraph, and writes a newest-first JSON index to
@@ -24,7 +24,7 @@ OUT = PUBLIC / "posts.json"
 FEED = PUBLIC / "atom.xml"
 CNAME = PUBLIC / "CNAME"
 
-SITE_TITLE = "Boring by design"
+SITE_TITLE = "Boring steps"
 
 # Pages that are never posts even if edited to carry a date.
 EXCLUDE = {"index.md", "about.md", "blog-structure.md", "identity.md", "history.md"}
@@ -98,7 +98,7 @@ def collect_posts() -> list[dict[str, object]]:
 
 def site_base() -> str:
     """Canonical site URL from the CNAME file, falling back to the apex."""
-    domain = "boringbydesign.org"
+    domain = "boringsteps.org"
     if CNAME.exists():
         value = CNAME.read_text(encoding="utf-8").strip()
         if value:

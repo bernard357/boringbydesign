@@ -4,7 +4,7 @@ layout: doc
 
 # Blog structure
 
-How posts are authored, addressed, and indexed on **Boring by design**. Posts
+How posts are authored, addressed, and indexed on **Boring steps**. Posts
 are independent essays; the only thing they share is the boring principle.
 
 ## Flat URLs and deep linking
@@ -12,7 +12,7 @@ are independent essays; the only thing they share is the boring principle.
 Each post is a single Markdown file at the **root** of the docs tree:
 
 ```
-documentation/<slug>.md   →   https://boringbydesign.org/<slug>
+documentation/<slug>.md   →   https://boringsteps.org/<slug>
 ```
 
 There is no `/blog` segment. The flat `/<slug>` URL is the post's permanent

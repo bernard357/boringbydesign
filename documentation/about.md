@@ -4,7 +4,7 @@ layout: doc
 
 # About
 
-_Boring by design_ is a blog about building simple, durable systems on purpose.
+_Boring steps_ is a blog about building simple, durable systems on purpose.
 The bet is that boring — proven, predictable tools and plain structures — beats
 novelty for its own sake, and lets the ideas stay the interesting part.
 

@@ -4,7 +4,7 @@ import { h } from 'vue'
 import PostNav from './PostNav.vue'
 import './custom.css'
 
-// Extend the VitePress default theme with the Boring by design identity.
+// Extend the VitePress default theme with the Boring steps identity.
 // Keeping the default theme (rather than forking it) means the brand lives
 // entirely in custom.css and survives VitePress upgrades. The doc-after slot
 // adds the data-driven previous/next bar below every post body; PostNav
