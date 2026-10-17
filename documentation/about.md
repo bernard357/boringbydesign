@@ -12,7 +12,7 @@ novelty for its own sake, and lets the ideas stay the interesting part.
 
 ## The author
 
-<img src="/author.svg" alt="Bernard Paques" class="author-photo" />
+<img src="/author.jpg" alt="Bernard Paques" class="author-photo" />
 
 Written by **Bernard Paques**. I build and operate systems for a living, and I
 keep coming back to the same lesson: the parts that last are the boring ones —
