@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 420" font-family="Helvetica, Arial, sans-serif" role="img" aria-label="Two ways to add semantic search to an agent: the usual external vector database versus a DuckDB file baked into the agent container.">
+  <rect x="0" y="0" width="920" height="420" fill="#ffffff"/>
+  <text x="460" y="42" text-anchor="middle" font-size="21" font-weight="700" fill="#212529">A few thousand documents: two ways to add semantic search</text>
+
+  <!-- ===== LEFT: the usual setup ===== -->
+  <text x="235" y="86" text-anchor="middle" font-size="15" font-weight="700" fill="#495057">The usual setup</text>
+
+  <!-- agent container -->
+  <rect x="70" y="110" width="150" height="150" rx="10" fill="#f1f5f9" stroke="#495057" stroke-width="1.5"/>
+  <text x="145" y="140" text-anchor="middle" font-size="13" font-weight="700" fill="#212529">Agent</text>
+  <text x="145" y="158" text-anchor="middle" font-size="11" fill="#868e96">(container)</text>
+
+  <!-- vector db service -->
+  <rect x="300" y="110" width="150" height="150" rx="10" fill="#dbeafe" stroke="#1971c2" stroke-width="1.5"/>
+  <text x="375" y="140" text-anchor="middle" font-size="13" font-weight="700" fill="#1864ab">Vector</text>
+  <text x="375" y="158" text-anchor="middle" font-size="13" font-weight="700" fill="#1864ab">database</text>
+  <text x="375" y="178" text-anchor="middle" font-size="11" fill="#495057">(service)</text>
+
+  <!-- network boundary -->
+  <line x1="262" y1="100" x2="262" y2="300" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="5 5"/>
+  <text x="262" y="296" text-anchor="middle" font-size="10" fill="#868e96">network</text>
+
+  <!-- round-trip arrows -->
+  <line x1="220" y1="175" x2="298" y2="175" stroke="#495057" stroke-width="1.5"/>
+  <polygon points="300,175 291,170 291,180" fill="#495057"/>
+  <line x1="300" y1="200" x2="222" y2="200" stroke="#495057" stroke-width="1.5"/>
+  <polygon points="220,200 229,195 229,205" fill="#495057"/>
+  <text x="260" y="150" text-anchor="middle" font-size="10" fill="#868e96">round trip</text>
+
+  <text x="235" y="300" text-anchor="middle" font-size="11" fill="#868e96">deploy · secure · monitor · pay</text>
+
+  <!-- ===== divider ===== -->
+  <line x1="490" y1="80" x2="490" y2="340" stroke="#dee2e6" stroke-width="1"/>
+
+  <!-- ===== RIGHT: the frugal building block ===== -->
+  <text x="690" y="86" text-anchor="middle" font-size="15" font-weight="700" fill="#495057">The frugal building block</text>
+
+  <!-- agent container holding the duckdb file -->
+  <rect x="560" y="110" width="260" height="150" rx="10" fill="#f1f5f9" stroke="#495057" stroke-width="1.5"/>
+  <text x="690" y="138" text-anchor="middle" font-size="13" font-weight="700" fill="#212529">Agent</text>
+  <text x="690" y="156" text-anchor="middle" font-size="11" fill="#868e96">(container)</text>
+
+  <!-- the duckdb file inside -->
+  <rect x="650" y="176" width="140" height="62" rx="8" fill="#dcfce7" stroke="#2f9e44" stroke-width="1.5"/>
+  <text x="720" y="202" text-anchor="middle" font-size="12" font-weight="700" fill="#2b8a3e">vectors.duckdb</text>
+  <text x="720" y="220" text-anchor="middle" font-size="10" fill="#495057">one file = one index</text>
+
+  <!-- local call arrow -->
+  <line x1="600" y1="207" x2="648" y2="207" stroke="#495057" stroke-width="1.5"/>
+  <polygon points="650,207 641,202 641,212" fill="#495057"/>
+  <text x="624" y="198" text-anchor="middle" font-size="9" fill="#868e96">local call</text>
+
+  <text x="690" y="300" text-anchor="middle" font-size="11" fill="#868e96">index baked into the image · answers in tens of ms</text>
+
+  <!-- footer line -->
+  <text x="460" y="372" text-anchor="middle" font-size="12" fill="#495057">Same agent. Fewer moving parts. No external vector database.</text>
+</svg>
