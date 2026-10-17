@@ -31,6 +31,35 @@ jobs:
           python-version: '3.12'
       - run: npm ci
       - run: python3 scripts/build_posts.py
+      # Rendering non-regression gate: build WITHOUT the state filter so the
+      # local-only rendering-test page is present, then validate it. A failure
+      # surfaces as a job-summary table and an error annotation on the run.
+      - name: Validate GFM + Mermaid rendering
+        env:
+          MATCHING_STATES: ""
+        run: |
+          npm run build
+          if python3 scripts/test_rendering.py | tee rendering-report.txt; then
+            {
+              echo "### Rendering test passed ✅"
+              echo ""
+              echo '```'
+              cat rendering-report.txt
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            {
+              echo "### Rendering test FAILED ❌"
+              echo ""
+              echo '```'
+              cat rendering-report.txt
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+            echo "::error title=Rendering regression::GFM/Mermaid rendering check failed — see the job summary."
+            exit 1
+          fi
+      # Production build: the state filter excludes local-only pages from the
+      # published artifact.
       - run: npm run build
       - uses: actions/configure-pages@v4
         with:
