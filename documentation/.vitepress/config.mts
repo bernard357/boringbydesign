@@ -1,7 +1,37 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
+import { readFileSync, readdirSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path'
+
+// Fail-closed state filter. A page is published only when its frontmatter
+// `state` is in MATCHING_STATES (set in CI, e.g. "production"). Pages with no
+// `state`, or a non-matching one, are excluded. When MATCHING_STATES is unset
+// (local builds), nothing is filtered, so every page is visible.
+function stateExcludes(): string[] {
+  const allowed = (process.env.MATCHING_STATES ?? '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+  if (!allowed.length) return [] // unset → no filtering (local)
+
+  // srcDir is this file's parent's parent (the documentation/ root), so the
+  // returned globs are relative to it: "<name>.md", never "documentation/...".
+  const docs = dirname(dirname(fileURLToPath(import.meta.url)))
+  const excluded: string[] = []
+  for (const name of readdirSync(docs)) {
+    if (!name.endsWith('.md')) continue
+    const text = readFileSync(join(docs, name), 'utf-8')
+    const fm = text.match(/^---\n([\s\S]*?)\n---/)
+    const state = fm?.[1].match(/^state:\s*(.+)$/m)?.[1].trim().replace(/^["']|["']$/g, '')
+    if (!state || !allowed.includes(state)) excluded.push(name)
+  }
+  return excluded
+}
 
 // https://vitepress.dev/reference/site-config
-export default defineConfig({
+export default withMermaid(defineConfig({
+  srcExclude: stateExcludes(),
   title: 'Boring steps',
   description: 'A blog and book, served statically.',
   // Served from the custom apex domain boringsteps.org at the root.
@@ -52,4 +82,4 @@ export default defineConfig({
       },
     ],
   },
-})
+}))

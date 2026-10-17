@@ -1,3 +1,7 @@
+---
+state: production
+---
+
 # Visual identity
 
 The visual identity for **Boring steps** is deliberately restrained. The

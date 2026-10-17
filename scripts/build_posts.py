@@ -27,7 +27,14 @@ CNAME = PUBLIC / "CNAME"
 SITE_TITLE = "Boring steps"
 
 # Pages that are never posts even if edited to carry a date.
-EXCLUDE = {"index.md", "about.md", "blog-structure.md", "identity.md", "history.md"}
+EXCLUDE = {
+    "index.md",
+    "about.md",
+    "blog-structure.md",
+    "identity.md",
+    "history.md",
+    "rendering-test.md",
+}
 
 FRONTMATTER = re.compile(r"^---\n(.*?)\n---\n?(.*)$", re.DOTALL)
 

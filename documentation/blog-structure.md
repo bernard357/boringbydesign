@@ -1,4 +1,5 @@
 ---
+state: production
 layout: doc
 ---
 
@@ -84,6 +85,24 @@ from the domain in `documentation/public/CNAME`, so the feed stays correct
 across a domain change. The feed is build-generated (git-ignored) and
 discoverable via a `<link rel="alternate" type="application/atom+xml">` tag and
 a feed icon in the top navigation.
+
+## Publication states
+
+Whether a page reaches the production site is governed by its frontmatter
+`state` and the `MATCHING_STATES` build variable — a fail-closed allow-list.
+
+- The GitHub Actions build sets `MATCHING_STATES: production`. A page is
+  published **only if** its `state` is in that comma-separated list.
+- A page with **no `state`**, or a non-matching one, is **excluded** from the
+  production build. Publishing is therefore a conscious act: add
+  `state: production`.
+- `state: local` marks a page as local-only (e.g. `rendering-test.md`); it is
+  visible under `make serve`/`make build` but never shipped.
+- When `MATCHING_STATES` is unset (local builds), nothing is filtered, so every
+  page — including drafts and local-only pages — is visible.
+
+The filter lives in `.vitepress/config.mts`, which scans page frontmatter and
+adds non-matching pages to `srcExclude` at build time.
 
 ## From blog to book
 
