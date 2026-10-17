@@ -1,6 +1,7 @@
 ---
 state: production
 layout: doc
+keyword: reference
 ---
 
 # Blog structure

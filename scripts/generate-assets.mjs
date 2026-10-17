@@ -10,7 +10,7 @@ const pub = join(root, 'documentation', 'public')
 
 const INK = '#1a2733'
 const BG = '#f7f8fa'
-const ACCENT = '#2563a8'
+const ACCENT = '#1f7a45'
 
 const logo = readFileSync(join(pub, 'logo.svg'))
 

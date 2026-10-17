@@ -1,12 +1,13 @@
 /* Boring steps — brand tokens over the VitePress default theme.
-   Values mirror documentation/identity.md. */
+   Single muted-green accent; values mirror documentation/identity.md. */
 
 :root {
-  /* Accent — single muted blue, used for links and the brand mark. */
-  --vp-c-brand-1: #2563a8;
-  --vp-c-brand-2: #1d4f87;
-  --vp-c-brand-3: #2563a8;
-  --vp-c-brand-soft: rgba(37, 99, 168, 0.14);
+  /* Accent — single muted green, used for links and the brand mark.
+     Contrast on the light background (#f7f8fa): brand-1 5.03:1, brand-2 6.84:1. */
+  --vp-c-brand-1: #1f7a45;
+  --vp-c-brand-2: #19633a;
+  --vp-c-brand-3: #1f7a45;
+  --vp-c-brand-soft: rgba(31, 122, 69, 0.14);
 
   /* Neutrals */
   --vp-c-bg: #f7f8fa;
@@ -15,7 +16,7 @@
   --vp-c-text-1: #1a2733;
   --vp-c-text-2: #5b6b7a;
 
-  /* Type: serif body for long-form, system sans for chrome. */
+  /* Type: one serif family for both body and headings (unified). */
   --vp-font-family-base: Georgia, Cambria, 'Times New Roman', serif;
   --vp-font-family-mono: ui-monospace, 'SF Mono', Menlo, monospace;
 
@@ -26,17 +27,15 @@
   --vp-home-hero-name-color: var(--vp-c-brand-1);
 }
 
-/* Keep navigation and headings on the modern system sans. */
-.VPNav,
-:is(h1, h2, h3, h4, .VPButton) {
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-}
+/* Headings use the body serif family (inherited from --vp-font-family-base);
+   no separate heading/nav font override. */
 
 .dark {
-  --vp-c-brand-1: #5b9bd5;
-  --vp-c-brand-2: #7db0e3;
-  --vp-c-brand-3: #5b9bd5;
-  --vp-c-brand-soft: rgba(91, 155, 213, 0.16);
+  /* Contrast on the dark background (#15191e): brand-1 7.61:1, brand-2 8.98:1. */
+  --vp-c-brand-1: #5bbd84;
+  --vp-c-brand-2: #7cc99a;
+  --vp-c-brand-3: #5bbd84;
+  --vp-c-brand-soft: rgba(91, 189, 132, 0.16);
 
   --vp-c-bg: #15191e;
   --vp-c-bg-alt: #1e242b;
@@ -170,4 +169,72 @@
 
 .post-nav-link:hover .post-nav-title {
   text-decoration: underline;
+}
+
+/* --- Chrome: centered nav, content container, footer, pre-header --- */
+
+/* Constrain the top nav to the content column instead of full-bleed. */
+:root {
+  --content-max: 48rem;
+}
+
+.VPNav .content,
+.VPNavBar .container {
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+/* Reshape the content container: a single centered reading column. */
+.VPDoc .container,
+.VPDoc.has-aside .content-container {
+  max-width: var(--content-max);
+  margin-inline: auto;
+}
+
+.VPDoc .content {
+  padding-inline: 1.25rem;
+}
+
+/* Pre-header: a colored uppercase keyword above the page title. */
+.page-keyword {
+  display: block;
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--vp-c-brand-1);
+}
+
+/* Two-part footer: tagline left, privacy link right. */
+.site-footer {
+  max-width: var(--content-max);
+  margin: 3rem auto 0;
+  padding: 1.25rem;
+  border-top: 1px solid var(--vp-c-divider);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: var(--vp-c-text-2);
+}
+
+.site-footer a {
+  color: var(--vp-c-text-2);
+  text-decoration: none;
+}
+
+.site-footer a:hover {
+  color: var(--vp-c-brand-1);
+}
+
+/* Author photo on the About page. */
+.author-photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  float: right;
+  margin: 0 0 1rem 1.5rem;
+  border: 1px solid var(--vp-c-divider);
 }

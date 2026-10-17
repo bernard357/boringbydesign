@@ -1,5 +1,6 @@
 ---
 state: production
+keyword: reference
 ---
 
 # Visual identity
@@ -19,8 +20,8 @@ serif wordmark: "Boring" in ink, "by design" in the accent.
 
 ## Palette
 
-Ink/slate neutrals carry the page; a single muted blue is the only accent,
-used for links, the filled grid cell, and the "by design" wordmark.
+Ink/slate neutrals carry the page; a single muted green is the only accent,
+used for links, the filled grid cell, and the pre-header keyword.
 
 | Role | Light | Dark |
 | --- | --- | --- |
@@ -28,8 +29,8 @@ used for links, the filled grid cell, and the "by design" wordmark.
 | Surface | `#ffffff` | `#1e242b` |
 | Body text | `#1a2733` | `#d6dde4` |
 | Muted text | `#5b6b7a` | `#9aa7b4` |
-| Accent (brand 1) | `#2563a8` | `#5b9bd5` |
-| Accent hover (brand 2) | `#1d4f87` | `#7db0e3` |
+| Accent (brand 1) | `#1f7a45` | `#5bbd84` |
+| Accent hover (brand 2) | `#19633a` | `#7cc99a` |
 
 ### Contrast
 
@@ -39,18 +40,24 @@ the accent both clear the AA threshold (4.5:1 for normal text) in both themes.
 | Pair | Ratio | AA (4.5:1) |
 | --- | --- | --- |
 | Light body `#1a2733` on `#f7f8fa` | 14.30:1 | pass |
-| Light accent `#2563a8` on `#f7f8fa` | 5.76:1 | pass |
+| Light accent `#1f7a45` on `#f7f8fa` | 5.03:1 | pass |
 | Dark body `#d6dde4` on `#15191e` | 12.88:1 | pass |
-| Dark accent `#5b9bd5` on `#15191e` | 5.96:1 | pass |
+| Dark accent `#5bbd84` on `#15191e` | 7.61:1 | pass |
 
 ## Typography
 
-A serif body signals "a book you can trust"; a system sans keeps the chrome
-modern and fast (no web-font fetch).
+One serif family is used for both body and headings, for a quiet, uniform page
+(no separate sans for chrome).
 
-- **Body / long-form:** Georgia, Cambria, "Times New Roman", serif
-- **UI / navigation / headings chrome:** system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+- **Body and headings:** Georgia, Cambria, "Times New Roman", serif
 - **Code:** ui-monospace, "SF Mono", Menlo, monospace
+
+## Pre-header keyword
+
+Each content page shows a small uppercase keyword in the accent colour above
+its title, read from a frontmatter `keyword` field and defaulting to `article`
+when absent. It is rendered by the `doc-before` theme slot and skipped on the
+home redirect and the history index.
 
 ## Logo usage
 
