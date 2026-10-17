@@ -34,6 +34,15 @@ function stateExcludes(): string[] {
 // https://vitepress.dev/reference/site-config
 export default withMermaid(defineConfig({
   srcExclude: stateExcludes(),
+  // Pre-bundle Mermaid's CommonJS dependencies so the Vite dev server resolves
+  // their ESM interop; without this, `fastdom` throws "does not provide an
+  // export named 'default'" and the dev page renders blank. The production
+  // (Rollup) build already handles this, so it only affects `make serve`.
+  vite: {
+    optimizeDeps: {
+      include: ['mermaid', 'dayjs', 'fastdom', 'cytoscape'],
+    },
+  },
   markdown: {
     // Enable GFM features VitePress omits by default.
     config: (md) => {

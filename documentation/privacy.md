@@ -1,10 +1,10 @@
 ---
 state: production
 layout: doc
-keyword: legal
+keyword: Boring Steps
 ---
 
-# Privacy
+# Privacy Policy
 
 The short version: there is nothing to collect, so there is nothing to disclose.
 Boring steps is a static site with no accounts, no analytics, no cookies, no

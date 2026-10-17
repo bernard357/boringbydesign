@@ -4,11 +4,10 @@ layout: doc
 aside: false
 outline: false
 sidebar: false
+keyword: Boring Steps
 ---
 
-# History
-
-Every post, newest first.
+# Past content
 
 <script setup>
 import { ref, onMounted } from 'vue'

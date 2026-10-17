@@ -176,23 +176,7 @@
 /* Constrain the top nav to the content column instead of full-bleed. */
 :root {
   --content-max: 48rem;
-}
-
-.VPNav .content,
-.VPNavBar .container {
-  max-width: var(--content-max);
-  margin-inline: auto;
-}
-
-/* Reshape the content container: a single centered reading column. */
-.VPDoc .container,
-.VPDoc.has-aside .content-container {
-  max-width: var(--content-max);
-  margin-inline: auto;
-}
-
-.VPDoc .content {
-  padding-inline: 1.25rem;
+  --content-pad: 24px;
 }
 
 /* Pre-header: a colored uppercase keyword above the page title. */
@@ -229,12 +213,33 @@
   color: var(--vp-c-brand-1);
 }
 
-/* Author photo on the About page. */
-.author-photo {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
+/* Author photo on the About page — floated to the side, links to GitHub. */
+.author-photo-link {
   float: right;
-  margin: 0 0 1rem 1.5rem;
+  margin: 0.25rem 0 1rem 1.5rem;
+}
+
+.author-photo {
+  display: block;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  object-fit: cover;
   border: 1px solid var(--vp-c-divider);
+  transition: border-color 0.15s ease;
+}
+
+.author-photo-link:hover .author-photo {
+  border-color: var(--vp-c-brand-1);
+}
+
+/* H2: drop the default theme's separating rule ABOVE the heading, and use a
+   thin full-width underline BELOW the title text instead. The h2 is block-level
+   so the border spans the whole content column, not just the text. */
+.vp-doc h2 {
+  border-top: none;
+  padding-top: 0;
+  margin-top: 2.5rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--vp-c-divider);
 }

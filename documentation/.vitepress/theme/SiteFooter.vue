@@ -4,7 +4,8 @@ import { withBase } from 'vitepress'
 
 <template>
   <footer class="site-footer">
-    <span class="site-footer-tagline">Simple, durable systems — built on purpose.</span>
-    <a :href="withBase('/privacy')">Privacy</a>
+    <span class="site-footer-tagline">How to stay frugal through the agentic revolution?</span>
+    --
+    <a :href="withBase('/privacy')">Privacy Policy</a>
   </footer>
 </template>

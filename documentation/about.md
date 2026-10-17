@@ -1,7 +1,7 @@
 ---
 state: production
 layout: doc
-keyword: about
+keyword: Boring Steps
 ---
 
 # About
@@ -10,37 +10,29 @@ _Boring steps_ is a blog about building simple, durable systems on purpose.
 The bet is that boring — proven, predictable tools and plain structures — beats
 novelty for its own sake, and lets the ideas stay the interesting part.
 
+## Principles
+
+- **Boring on purpose.** Favour proven, predictable tools and patterns over novelty for its own sake. Sustainable innovation is about making upcoming things as boring as possible, quickly.
+
+- **Recycle capable assets.** There are so many good and stable building block available. Just use them, maybe with a tweak. Leveraging what you have and know is more efficient than daily table stakes.
+
+- **Composable agentic distributed systems.** Do not give away your decision power to frameworks or platforms. Build your own toolbox too. This is the most sure path towards expertise.
+
+## Why "Boring Steps"?
+
+Good systems are rarely one clever leap; they are a sequence of small, dull, deliberate steps that each hold up on their own. The name is a reminder to favour the unremarkable move that keeps working over the exciting one that needs babysitting.
+
+Inspired by Dan McKinley: [Choose Boring Technology](https://mcfunley.com/choose-boring-technology) (2015).
+
+And by Amazon's leadership principle: [Frugality](https://amazon.jobs/content/en/our-workplace/leadership-principles). "Accomplish more with less. Constraints breed resourcefulness, self-sufficiency, and invention. There are no extra points for growing headcount, budget size, or fixed expense."
+
 ## The author
 
-<img src="/author.jpg" alt="Bernard Paques" class="author-photo" />
+<a href="https://github.com/bernard357" class="author-photo-link" aria-label="Bernard Paques on GitHub"><img src="/author.jpg" alt="Bernard Paques" class="author-photo" /></a>
 
 Written by **Bernard Paques**. I build and operate systems for a living, and I
 keep coming back to the same lesson: the parts that last are the boring ones —
-the conventions, the small scripts, the choices you do not have to revisit.
+the conventions, the small scripts, the choices that set clear boundaries.
 This blog is where I write those down.
 
-Find me on [GitHub](https://github.com/bernard357).
-
-## Why "boring steps"
-
-Good systems are rarely one clever leap; they are a sequence of small, dull,
-deliberate steps that each hold up on their own. The name is a reminder to
-favour the unremarkable move that keeps working over the exciting one that
-needs babysitting.
-
-## Principles
-
-- **Boring on purpose.** Favour proven, predictable tools over novelty for its
-  own sake.
-- **Static and durable.** Authored in Markdown, built with VitePress, served
-  from GitHub Pages.
-- **Automated publishing.** Every push to `main` rebuilds and republishes the
-  site, with no manual steps.
-
-## Colophon
-
-The site is authored in Markdown under `documentation/`, built as a static site
-with [VitePress](https://vitepress.dev/), and published to
-[GitHub Pages](https://docs.github.com/en/pages). Posts are flat, deep-linkable
-pages; see [blog structure](/blog-structure) for how they are authored and
-indexed.
+Find me on [GitHub](https://github.com/bernard357) or on [LinkedIn](https://www.linkedin.com/in/webnetworker).
