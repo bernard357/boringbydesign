@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
+import footnote from 'markdown-it-footnote'
+import taskLists from 'markdown-it-task-lists'
 import { readFileSync, readdirSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import { dirname, join } from 'node:path'
@@ -32,6 +34,13 @@ function stateExcludes(): string[] {
 // https://vitepress.dev/reference/site-config
 export default withMermaid(defineConfig({
   srcExclude: stateExcludes(),
+  markdown: {
+    // Enable GFM features VitePress omits by default.
+    config: (md) => {
+      md.use(footnote)
+      md.use(taskLists)
+    },
+  },
   title: 'Boring steps',
   description: 'A blog and book, served statically.',
   // Served from the custom apex domain boringsteps.org at the root.

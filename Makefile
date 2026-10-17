@@ -1,4 +1,4 @@
-.PHONY: help setup posts serve build preview clean
+.PHONY: help setup posts serve build preview test clean
 
 DIST := documentation/.vitepress/dist
 CACHE := documentation/.vitepress/cache
@@ -18,6 +18,7 @@ help:
 	@echo "  serve    Start the dev server with hot reload (localhost:5173)"
 	@echo "  build    Force a static build into $(DIST)"
 	@echo "  preview  Build if sources changed, then serve the built site"
+	@echo "  test     Build if needed, then validate GFM+Mermaid rendering"
 	@echo "  clean    Remove the built site, cache, and generated post index"
 
 setup:
@@ -46,6 +47,11 @@ build:
 # Build only if needed (via the $(DIST) dependency), then serve.
 preview: $(DIST)
 	npm run preview
+
+# Build if needed, then validate the rendering-test page renders every
+# GFM + Mermaid feature. Exits non-zero on any regression.
+test: $(DIST)
+	python3 scripts/test_rendering.py
 
 clean:
 	rm -rf $(DIST) $(CACHE) $(POSTS)
