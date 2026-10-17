@@ -1,0 +1,149 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Description: >
+  Redirect boringsteps.com (apex and www) to https://boringsteps.org with a
+  valid TLS certificate. An S3 website bucket issues the 301, CloudFront serves
+  it over HTTPS with an ACM certificate, and Route 53 alias records point the
+  domain at the distribution. Must be deployed in us-east-1 because CloudFront
+  requires its ACM certificate in that region.
+
+Parameters:
+  RedirectDomain:
+    Type: String
+    Default: boringsteps.com
+    Description: Apex domain to redirect from.
+  RedirectWwwDomain:
+    Type: String
+    Default: www.boringsteps.com
+    Description: www host to redirect from.
+  TargetDomain:
+    Type: String
+    Default: boringsteps.org
+    Description: Canonical domain to redirect to (served by GitHub Pages).
+  HostedZoneId:
+    Type: AWS::Route53::HostedZone::Id
+    Description: Route 53 hosted zone ID for the redirect (.com) domain.
+
+Resources:
+  # TLS certificate covering the apex and www of the redirect domain.
+  # DNS-validated; CloudFormation creates the validation CNAMEs in the zone.
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Ref RedirectDomain
+      SubjectAlternativeNames:
+        - !Ref RedirectWwwDomain
+      ValidationMethod: DNS
+      DomainValidationOptions:
+        - DomainName: !Ref RedirectDomain
+          HostedZoneId: !Ref HostedZoneId
+        - DomainName: !Ref RedirectWwwDomain
+          HostedZoneId: !Ref HostedZoneId
+
+  # S3 bucket configured purely as a redirect: every request 301s to the
+  # target domain over https. No objects are ever stored.
+  RedirectBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Ref RedirectDomain
+      WebsiteConfiguration:
+        RedirectAllRequestsTo:
+          HostName: !Ref TargetDomain
+          Protocol: https
+
+  # CloudFront fronts the S3 website endpoint to add HTTPS and the custom
+  # domain names. The website endpoint only speaks HTTP, so the origin is
+  # http-only; viewers are forced to HTTPS at the edge.
+  Distribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        Comment: !Sub "Redirect ${RedirectDomain} to ${TargetDomain}"
+        Aliases:
+          - !Ref RedirectDomain
+          - !Ref RedirectWwwDomain
+        PriceClass: PriceClass_100
+        ViewerCertificate:
+          AcmCertificateArn: !Ref Certificate
+          SslSupportMethod: sni-only
+          MinimumProtocolVersion: TLSv1.2_2021
+        Origins:
+          - Id: S3WebsiteOrigin
+            # Website endpoint, not the REST endpoint — required for redirects.
+            DomainName: !Select [2, !Split ["/", !GetAtt RedirectBucket.WebsiteURL]]
+            CustomOriginConfig:
+              OriginProtocolPolicy: http-only
+              HTTPPort: 80
+              HTTPSPort: 443
+              OriginSSLProtocols:
+                - TLSv1.2
+        DefaultCacheBehavior:
+          TargetOriginId: S3WebsiteOrigin
+          ViewerProtocolPolicy: redirect-to-https
+          AllowedMethods:
+            - GET
+            - HEAD
+          CachedMethods:
+            - GET
+            - HEAD
+          Compress: true
+          # AWS managed "CachingOptimized" policy — redirects are tiny and cacheable.
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+
+  # Alias records pointing the redirect domain at the distribution.
+  # Z2FDTNDATAQYW2 is CloudFront's fixed hosted zone ID for alias targets.
+  ApexAliasA:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Ref RedirectDomain
+      Type: A
+      AliasTarget:
+        DNSName: !GetAtt Distribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+        EvaluateTargetHealth: false
+
+  ApexAliasAAAA:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Ref RedirectDomain
+      Type: AAAA
+      AliasTarget:
+        DNSName: !GetAtt Distribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+        EvaluateTargetHealth: false
+
+  WwwAliasA:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Ref RedirectWwwDomain
+      Type: A
+      AliasTarget:
+        DNSName: !GetAtt Distribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+        EvaluateTargetHealth: false
+
+  WwwAliasAAAA:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: !Ref RedirectWwwDomain
+      Type: AAAA
+      AliasTarget:
+        DNSName: !GetAtt Distribution.DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+        EvaluateTargetHealth: false
+
+Outputs:
+  DistributionDomainName:
+    Description: CloudFront distribution domain name.
+    Value: !GetAtt Distribution.DomainName
+  CertificateArn:
+    Description: ACM certificate ARN (us-east-1).
+    Value: !Ref Certificate
+  RedirectBucketName:
+    Description: S3 redirect bucket.
+    Value: !Ref RedirectBucket
